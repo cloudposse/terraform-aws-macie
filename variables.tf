@@ -1,20 +1,14 @@
-variable "account_enabled" {
+variable "admin_org_account_enabled" {
   type        = bool
-  description = "Whether to enable Amazon Macie and start all Macie activities for the account."
+  description = "Whether to enable Amazon Macie administrator account for the organization."
   default     = true
 }
 
-variable "admin_account_ids" {
-  type        = list(string)
-  description = "The list of AWS account IDs for the account to designate as the delegated Amazon Macie administrator accounts for the organization."
-  default     = []
-}
-
-variable "members" {
-  type        = list(any)
-  default     = []
+variable "member" {
+  type        = map(any)
+  default     = {}
   description = <<-DOC
-    A list of maps of Amazon Macie Members.
+    The Member provides information about an individual account that's associated with your Amazon Macie account, typically a Macie administrator account.
       account_id:
         The AWS account ID for the account.
       email:
@@ -69,7 +63,8 @@ variable "classification_jobs" {
   type        = list(any)
   default     = []
   description = <<-DOC
-    A list of maps of classification jobs.
+    A list of maps of Classification Jobs.
+    The Classification Job Creation resource represents the collection of settings that define the scope and schedule for a classification job.
       name:
         A custom name for the job.
       description:
@@ -88,7 +83,12 @@ variable "classification_jobs" {
       job_status:
         The status for the job. 
         Possible values: `CANCELLED`, `RUNNING` and `USER_PAUSED`.
-
+      custom_data_identifier_ids:
+        The custom data identifiers to use for data analysis and classification.
+        Conflicts with `custom_data_identifier_names`.
+      custom_data_identifier_names:
+        The custom data identifiers created by this module to use for data analysis and classification.
+        Conflicts with `custom_data_identifier_ids`.
       schedule_frequency:
         daily_schedule:
           Specifies a daily recurrence pattern for running the job.
@@ -96,6 +96,105 @@ variable "classification_jobs" {
           Specifies a weekly recurrence pattern for running the job.
         monthly_schedule:
           Specifies a monthly recurrence pattern for running the job.
+      s3_job_definition:
+        The S3 buckets that contain the objects to analyze, and the scope of that analysis.
+          bucket_definitions:
+             An array of objects, one for each AWS account that owns buckets to analyze.
+              account_id:
+                The unique identifier for the AWS account that owns the buckets.
+              buckets:
+                An array that lists the names of the buckets.
+      scoping:
+        The property- and tag-based conditions that determine which objects to include or exclude from the analysis.
+          excludes:
+            The property- or tag-based conditions that determine which objects to exclude from the analysis.
+               and:
+                An array of conditions, one for each condition that determines which objects to include or exclude from the job.
+                  simple_scope_term:
+                    A property-based condition that defines a property, operator, and one or more values for including or excluding an object from the job.
+                      comparator:
+                        The operator to use in a condition. 
+                        Possible values are: `EQ`, `GT`, `GTE`, `LT`, `LTE`, `NE`, `CONTAINS`, `STARTS_WITH`.
+                      values:
+                        An array that lists the values to use in the condition.
+                      key:
+                        The object property to use in the condition.
+                  tag_scope_term:
+                    A tag-based condition that defines the operator and tag keys or tag key and value pairs for including or excluding an object from the job.
+                      comparator:
+                        The operator to use in the condition.
+                      tag_values:
+                        The tag keys or tag key and value pairs to use in the condition.
+                      key:
+                        The tag key to use in the condition.
+                      target:
+                        The type of object to apply the condition to.
+          includes:
+            The property- or tag-based conditions that determine which objects to include in the analysis. 
+               and:
+                An array of conditions, one for each condition that determines which objects to include or exclude from the job.
+                  simple_scope_term:
+                    A property-based condition that defines a property, operator, and one or more values for including or excluding an object from the job.
+                      comparator:
+                        The operator to use in a condition. 
+                        Possible values are: `EQ`, `GT`, `GTE`, `LT`, `LTE`, `NE`, `CONTAINS`, `STARTS_WITH`.
+                      values:
+                        An array that lists the values to use in the condition.
+                      key:
+                        The object property to use in the condition.
+                  tag_scope_term:
+                    A tag-based condition that defines the operator and tag keys or tag key and value pairs for including or excluding an object from the job.
+                      comparator:
+                        The operator to use in the condition.
+                      tag_values:
+                        The tag keys or tag key and value pairs to use in the condition.
+                      key:
+                        The tag key to use in the condition.
+                      target:
+                        The type of object to apply the condition to.
+  DOC
+}
+
+variable "findings_filters" {
+  type        = list(any)
+  default     = []
+  description = <<-DOC
+    A list of maps of findings filters.
+    The Findings Filter resource represents an individual filter that you created and saved to view, analyze, and manage findings.
+      name:
+        A custom name for the filter.
+      description:
+        A custom description of the filter.
+      action
+        The action to perform on findings that meet the filter criteria.
+        Possible values: `ARCHIVE`, `NOOP`.
+      position:
+        The position of the filter in the list of saved filters on the Amazon Macie console. 
+        This value also determines the order in which the filter is applied to findings, relative to other filters that are also applied to the findings.
+      tags:
+        A map of key-value pairs that specifies the tags to associate with the filter.
+      finding_criteria:
+        The criteria to use to filter findings.
+        A list of maps with required key `field` and condition (`eq_exact_match`, `eq`, `neq`, `lt`, `lte`, `gt`, `gte`).
+          field:
+            The name of the field to be evaluated.
+          eq_exact_match:
+            The value for the property exclusively matches (equals an exact match for) all the specified values. 
+            If you specify multiple values, Amazon Macie uses `AND` logic to join the values.
+          eq:
+            The value for the property matches (equals) the specified value. 
+            If you specify multiple values, Amazon Macie uses `OR` logic to join the values.
+          neq:
+            The value for the property doesn't match (doesn't equal) the specified value.
+            If you specify multiple values, Amazon Macie uses `OR` logic to join the values.
+          lt:
+            The value for the property is less than the specified value.
+          lte:
+            The value for the property is less than or equal to the specified value.
+          gt:
+            The value for the property is greater than the specified value.
+          gte:
+            The value for the property is greater than or equal to the specified value.
 
   DOC
 }

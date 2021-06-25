@@ -120,6 +120,7 @@ resource "aws_macie2_classification_job" "default" {
   }
 
   depends_on = [
-    aws_macie2_account.default
+    aws_macie2_account.primary,
+    aws_macie2_account.member
   ]
 }

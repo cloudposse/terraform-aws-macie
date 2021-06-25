@@ -21,6 +21,7 @@ resource "aws_macie2_custom_data_identifier" "default" {
   tags                   = module.custom_data_identifier_label[each.key].tags
 
   depends_on = [
-    aws_macie2_account.default
+    aws_macie2_account.primary,
+    aws_macie2_account.member
   ]
 }

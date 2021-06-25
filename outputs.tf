@@ -1,27 +1,44 @@
-output "account_id" {
-  description = "The ID of the Macie account."
-  value       = join("", aws_macie2_account.default.*.id)
+output "primary_account_id" {
+  description = "The ID of the Macie primary account."
+  value       = one(aws_macie2_account.primary[*].id)
 }
 
-output "account_service_role" {
-  description = "The ARN of the Macie account."
-  value       = join("", aws_macie2_account.default.*.service_role)
+output "primary_account_service_role" {
+  description = "The ARN of the Macie primary account."
+  value       = one(aws_macie2_account.primary[*].service_role)
 }
 
-output "org_admin_account_ids" {
-  description = "The list of IDs of the Macie organization admin accounts."
-  value = [
-    for i in aws_macie2_organization_admin_account.default :
-    i.id
-    if length(local.admin_account_ids) > 0
-  ]
+output "member_account_id" {
+  description = "The ID of the Macie member account."
+  value       = one(aws_macie2_account.member[*].id)
 }
 
-output "aws_account_to_org_admin_account_ids" {
-  description = "A map of the AWS account IDs to Macie organization admin account IDs"
-  value = {
-    for i in aws_macie2_organization_admin_account.default :
-    i.admin_account_id => i.id
-    if length(local.admin_account_ids) > 0
-  }
+output "member_account_service_role" {
+  description = "The ARN of the Macie member account."
+  value       = one(aws_macie2_account.member[*].service_role)
+}
+
+output "admin_account_id" {
+  description = "The ID of the Macie organization admin account."
+  value       = one(aws_macie2_organization_admin_account.default[*].id)
+}
+
+output "classification_job_ids" {
+  description = "The ID of the Macie Classification Jobs."
+  value       = aws_macie2_classification_job.default[*].id
+}
+
+output "custom_data_identifier_ids" {
+  description = "The ID of the Macie Custom Data Identifiers."
+  value       = aws_macie2_custom_data_identifier.default[*].id
+}
+
+output "findings_filters_ids" {
+  description = "The ID of the Macie Findings Filters."
+  value       = aws_macie2_findings_filter.default[*].id
+}
+
+output "findings_filters_arns" {
+  description = "The ARN of the Macie Findings Filters."
+  value       = aws_macie2_findings_filter.default[*].arn
 }

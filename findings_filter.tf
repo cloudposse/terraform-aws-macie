@@ -23,8 +23,14 @@ resource "aws_macie2_findings_filter" "default" {
 
     content {
       criterion {
-        field = "region"
-        eq    = [data.aws_region.current.name]
+        field          = finding_criteria.value.field
+        eq_exact_match = lookup(each.value, "eq_exact_match", null)
+        eq             = lookup(each.value, "eq", null)
+        neq            = lookup(each.value, "neq", null)
+        lt             = lookup(each.value, "lt", null)
+        lte            = lookup(each.value, "lte", null)
+        gt             = lookup(each.value, "gt", null)
+        gte            = lookup(each.value, "gte", null)
       }
     }
   }

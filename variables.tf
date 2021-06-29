@@ -4,6 +4,16 @@ variable "admin_org_account_enabled" {
   default     = true
 }
 
+variable "finding_publishing_frequency" {
+  type        = string
+  default     = "ONE_HOUR"
+  description = <<-DOC
+    Specifies how often to publish updates to policy findings for the account. 
+    This includes publishing updates to AWS Security Hub and Amazon EventBridge (formerly called Amazon CloudWatch Events). 
+    Possible values: `FIFTEEN_MINUTES`, `ONE_HOUR`, `SIX_HOURS`.
+  DOC
+}
+
 variable "member" {
   type        = map(any)
   default     = {}
@@ -85,10 +95,8 @@ variable "classification_jobs" {
         Possible values: `CANCELLED`, `RUNNING` and `USER_PAUSED`.
       custom_data_identifier_ids:
         The custom data identifiers to use for data analysis and classification.
-        Conflicts with `custom_data_identifier_names`.
       custom_data_identifier_names:
         The custom data identifiers created by this module to use for data analysis and classification.
-        Conflicts with `custom_data_identifier_ids`.
       schedule_frequency:
         daily_schedule:
           Specifies a daily recurrence pattern for running the job.

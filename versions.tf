@@ -7,7 +7,7 @@ terraform {
       version = ">= 2.0"
 
       configuration_aliases = [
-        aws.admin
+        aws.primary
       ]
     }
   }

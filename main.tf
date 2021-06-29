@@ -1,6 +1,6 @@
 locals {
   enabled                   = module.this.enabled
-  account_status            = local.account_enabled ? "ENABLED" : "PAUSED"
+  account_status            = local.admin_org_account_enabled ? "ENABLED" : "PAUSED"
   admin_org_account_enabled = local.enabled && var.admin_org_account_enabled
   member_enabled            = local.enabled && length(var.member) > 0
   custom_data_identifiers   = local.enabled && length(var.custom_data_identifiers) > 0 ? { for cdi in flatten(var.custom_data_identifiers) : cdi.name => cdi } : {}
@@ -10,20 +10,20 @@ locals {
 
 resource "aws_macie2_account" "primary" {
   count    = local.enabled ? 1 : 0
-  provider = "aws.primary"
+  provider = aws.primary
 
   finding_publishing_frequency = var.finding_publishing_frequency
   status                       = local.account_status
 }
 
 data "aws_caller_identity" "primary" {
-  count    = local.admin_account_enabled ? 1 : 0
-  provider = "aws.primary"
+  count    = local.admin_org_account_enabled ? 1 : 0
+  provider = aws.primary
 }
 
 resource "aws_macie2_organization_admin_account" "default" {
-  count    = local.admin_account_enabled ? 1 : 0
-  provider = "aws.admin"
+  count    = local.admin_org_account_enabled ? 1 : 0
+  provider = aws.primary
 
   admin_account_id = one(data.aws_caller_identity.primary[*].account_id)
 
@@ -36,8 +36,8 @@ module "member_label" {
   source  = "cloudposse/label/null"
   version = "0.24.1"
 
-  attributes = [replace(var.member["email"], "/[[:punct:]]/", "-")]
-  tags       = lookup(var.member, "tags", null)
+  attributes = [replace(lookup(var.member, "email", ""), "/[[:punct:]]/", "-")]
+  tags       = lookup(var.member, "tags", null) == null ? {} : lookup(var.member, "tags")
   context    = module.this.context
   enabled    = local.member_enabled
 }
@@ -48,7 +48,7 @@ resource "aws_macie2_account" "member" {
 
 resource "aws_macie2_member" "primary" {
   count    = local.member_enabled ? 1 : 0
-  provider = "aws.primary"
+  provider = aws.primary
 
   account_id                            = var.member["account_id"]
   email                                 = var.member["email"]
@@ -67,7 +67,7 @@ resource "aws_macie2_member" "primary" {
 resource "aws_macie2_invitation_accepter" "member" {
   count = local.member_enabled ? 1 : 0
 
-  administrator_account_id = one(data.aws_macie2_organization_primary_account.default[*].id)
+  administrator_account_id = one(aws_macie2_organization_admin_account.default[*].id)
 
   depends_on = [
     aws_macie2_account.primary,

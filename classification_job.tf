@@ -18,7 +18,7 @@ resource "aws_macie2_classification_job" "default" {
   initial_run                = lookup(each.value, "initial_run", null)
   job_type                   = each.value.job_type
   job_status                 = lookup(each.value, "job_status", null)
-  custom_data_identifier_ids = lookup(each.value, "custom_data_identifier_ids", null)
+  custom_data_identifier_ids = try(concat(lookup(each.value, "custom_data_identifier_ids", []), [for job in lookup(each.value, "custom_data_identifier_names", []) : aws_macie2_custom_data_identifier.default[job].id]), null)
 
 
   dynamic "schedule_frequency" {

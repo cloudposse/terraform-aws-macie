@@ -24,21 +24,33 @@ output "admin_account_id" {
 }
 
 output "classification_job_ids" {
-  description = "The ID of the Macie Classification Jobs."
-  value       = aws_macie2_classification_job.default[*].id
+  description = "The IDs of the Macie Classification Jobs."
+  value = [
+    for job in aws_macie2_classification_job.default :
+    job.id
+  ]
 }
 
 output "custom_data_identifier_ids" {
-  description = "The ID of the Macie Custom Data Identifiers."
-  value       = aws_macie2_custom_data_identifier.default[*].id
+  description = "The IDs of the Macie Custom Data Identifiers."
+  value = [
+    for cdi in aws_macie2_custom_data_identifier.default :
+    cdi.id
+  ]
 }
 
 output "findings_filters_ids" {
-  description = "The ID of the Macie Findings Filters."
-  value       = aws_macie2_findings_filter.default[*].id
+  description = "The IDs of the Macie Findings Filters."
+  value = [
+    for ff in aws_macie2_findings_filter.default :
+    ff.id
+  ]
 }
 
 output "findings_filters_arns" {
-  description = "The ARN of the Macie Findings Filters."
-  value       = aws_macie2_findings_filter.default[*].arn
+  description = "The ARNs of the Macie Findings Filters."
+  value = [
+    for ff in aws_macie2_findings_filter.default :
+    ff.arn
+  ]
 }

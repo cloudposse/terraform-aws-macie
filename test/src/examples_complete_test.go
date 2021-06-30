@@ -45,8 +45,9 @@ func TestExamplesComplete(t *testing.T) {
 	findingsFiltersIDs := terraform.OutputList(t, terraformOptions, "findings_filters_ids")
 	findingsFiltersARNs := terraform.OutputList(t, terraformOptions, "findings_filters_arns")
 
+	// Ensure we get the attribute included in the ID
 	assert.Equal(t, accountID, primaryAccountID)
-	assert.Equal(t, "arn:aws:iam::"+adminAccountID+":role/aws-service-role/macie.amazonaws.com/AWSServiceRoleForAmazonMacie", primaryAccountServiceRole)
+	assert.Equal(t, "arn:aws:iam::"+accountID+":role/aws-service-role/macie.amazonaws.com/AWSServiceRoleForAmazonMacie", primaryAccountServiceRole)
 	assert.NotEmpty(t, classificationJobIDs)
 	assert.NotEmpty(t, customDataIdentifierIDs)
 	assert.NotEmpty(t, findingsFiltersIDs)

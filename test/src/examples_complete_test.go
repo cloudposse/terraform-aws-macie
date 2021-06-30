@@ -17,7 +17,7 @@ func TestExamplesComplete(t *testing.T) {
 	rand.Seed(time.Now().UnixNano())
 	randID := strconv.Itoa(rand.Intn(100000))
 	attributes := []string{randID}
-	accountID := "323330167063"
+	accountID := "126450723953"
 
 	terraformOptions := &terraform.Options{
 		// The path to where our Terraform code is located

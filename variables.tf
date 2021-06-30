@@ -4,6 +4,12 @@ variable "admin_org_account_enabled" {
   default     = true
 }
 
+variable "account_enabled" {
+  type        = bool
+  description = "Whether to enable Amazon Macie primary account."
+  default     = true
+}
+
 variable "finding_publishing_frequency" {
   type        = string
   default     = "ONE_HOUR"

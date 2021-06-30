@@ -1,6 +1,6 @@
 locals {
   enabled                   = module.this.enabled
-  account_status            = local.admin_org_account_enabled ? "ENABLED" : "PAUSED"
+  account_status            = local.enabled && var.account_enabled ? "ENABLED" : "PAUSED"
   admin_org_account_enabled = local.enabled && var.admin_org_account_enabled
   member_enabled            = local.enabled && length(var.member) > 0
   custom_data_identifiers   = local.enabled && length(var.custom_data_identifiers) > 0 ? { for cdi in flatten(var.custom_data_identifiers) : cdi.name => cdi } : {}
@@ -35,7 +35,7 @@ resource "aws_macie2_organization_admin_account" "default" {
 resource "time_sleep" "wait_for_macie_account" {
   count = local.enabled ? 1 : 0
 
-  create_duration = "30s"
+  create_duration = "10s"
 
   depends_on = [
     aws_macie2_account.primary,

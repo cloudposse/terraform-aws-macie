@@ -112,54 +112,54 @@ variable "classification_jobs" {
                 The unique identifier for the AWS account that owns the buckets.
               buckets:
                 An array that lists the names of the buckets.
-      scoping:
-        The property- and tag-based conditions that determine which objects to include or exclude from the analysis.
-          excludes:
-            The property- or tag-based conditions that determine which objects to exclude from the analysis.
-               and:
-                An array of conditions, one for each condition that determines which objects to include or exclude from the job.
-                  simple_scope_term:
-                    A property-based condition that defines a property, operator, and one or more values for including or excluding an object from the job.
-                      comparator:
-                        The operator to use in a condition. 
-                        Possible values are: `EQ`, `GT`, `GTE`, `LT`, `LTE`, `NE`, `CONTAINS`, `STARTS_WITH`.
-                      values:
-                        An array that lists the values to use in the condition.
-                      key:
-                        The object property to use in the condition.
-                  tag_scope_term:
-                    A tag-based condition that defines the operator and tag keys or tag key and value pairs for including or excluding an object from the job.
-                      comparator:
-                        The operator to use in the condition.
-                      tag_values:
-                        The tag keys or tag key and value pairs to use in the condition.
-                      key:
-                        The tag key to use in the condition.
-                      target:
-                        The type of object to apply the condition to.
-          includes:
-            The property- or tag-based conditions that determine which objects to include in the analysis. 
-               and:
-                An array of conditions, one for each condition that determines which objects to include or exclude from the job.
-                  simple_scope_term:
-                    A property-based condition that defines a property, operator, and one or more values for including or excluding an object from the job.
-                      comparator:
-                        The operator to use in a condition. 
-                        Possible values are: `EQ`, `GT`, `GTE`, `LT`, `LTE`, `NE`, `CONTAINS`, `STARTS_WITH`.
-                      values:
-                        An array that lists the values to use in the condition.
-                      key:
-                        The object property to use in the condition.
-                  tag_scope_term:
-                    A tag-based condition that defines the operator and tag keys or tag key and value pairs for including or excluding an object from the job.
-                      comparator:
-                        The operator to use in the condition.
-                      tag_values:
-                        The tag keys or tag key and value pairs to use in the condition.
-                      key:
-                        The tag key to use in the condition.
-                      target:
-                        The type of object to apply the condition to.
+          scoping:
+            The property- and tag-based conditions that determine which objects to include or exclude from the analysis.
+              excludes:
+                The property- or tag-based conditions that determine which objects to exclude from the analysis.
+                  and:
+                    An array of conditions, one for each condition that determines which objects to include or exclude from the job.
+                      simple_scope_term:
+                        A property-based condition that defines a property, operator, and one or more values for including or excluding an object from the job.
+                          comparator:
+                            The operator to use in a condition. 
+                            Possible values are: `EQ`, `GT`, `GTE`, `LT`, `LTE`, `NE`, `CONTAINS`, `STARTS_WITH`.
+                          values:
+                            An array that lists the values to use in the condition.
+                          key:
+                            The object property to use in the condition.
+                      tag_scope_term:
+                        A tag-based condition that defines the operator and tag keys or tag key and value pairs for including or excluding an object from the job.
+                          comparator:
+                            The operator to use in the condition.
+                          tag_values:
+                            The tag keys or tag key and value pairs to use in the condition.
+                          key:
+                            The tag key to use in the condition.
+                          target:
+                            The type of object to apply the condition to.
+              includes:
+                The property- or tag-based conditions that determine which objects to include in the analysis. 
+                  and:
+                    An array of conditions, one for each condition that determines which objects to include or exclude from the job.
+                      simple_scope_term:
+                        A property-based condition that defines a property, operator, and one or more values for including or excluding an object from the job.
+                          comparator:
+                            The operator to use in a condition. 
+                            Possible values are: `EQ`, `GT`, `GTE`, `LT`, `LTE`, `NE`, `CONTAINS`, `STARTS_WITH`.
+                          values:
+                            An array that lists the values to use in the condition.
+                          key:
+                            The object property to use in the condition.
+                      tag_scope_term:
+                        A tag-based condition that defines the operator and tag keys or tag key and value pairs for including or excluding an object from the job.
+                          comparator:
+                            The operator to use in the condition.
+                          tag_values:
+                            The tag keys or tag key and value pairs to use in the condition.
+                          key:
+                            The tag key to use in the condition.
+                          target:
+                            The type of object to apply the condition to.
   DOC
 }
 
@@ -181,7 +181,7 @@ variable "findings_filters" {
         This value also determines the order in which the filter is applied to findings, relative to other filters that are also applied to the findings.
       tags:
         A map of key-value pairs that specifies the tags to associate with the filter.
-      finding_criteria:
+      finding_criterias:
         The criteria to use to filter findings.
         A list of maps with required key `field` and condition (`eq_exact_match`, `eq`, `neq`, `lt`, `lte`, `gt`, `gte`).
           field:

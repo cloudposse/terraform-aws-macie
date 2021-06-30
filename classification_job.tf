@@ -22,7 +22,7 @@ resource "aws_macie2_classification_job" "default" {
 
 
   dynamic "schedule_frequency" {
-    for_each = lookup(each.value, "schedule_frequency", null) != null ? [1] : []
+    for_each = lookup(each.value, "schedule_frequency", null) != null ? [each.value.schedule_frequency] : []
 
     content {
       daily_schedule   = lookup(schedule_frequency.value, "daily_schedule", null)
@@ -33,11 +33,11 @@ resource "aws_macie2_classification_job" "default" {
 
 
   dynamic "s3_job_definition" {
-    for_each = lookup(each.value, "s3_job_definition", null) != null ? [1] : []
+    for_each = lookup(each.value, "s3_job_definition", null) != null ? [each.value.s3_job_definition] : []
 
     content {
       dynamic "bucket_definitions" {
-        for_each = lookup(s3_job_definition.value, "bucket_definitions", null) != null ? [1] : []
+        for_each = lookup(s3_job_definition.value, "bucket_definitions", null) != null ? [s3_job_definition.value.bucket_definitions] : []
 
         content {
           account_id = bucket_definitions.value.account_id
@@ -46,19 +46,19 @@ resource "aws_macie2_classification_job" "default" {
       }
 
       dynamic "scoping" {
-        for_each = lookup(s3_job_definition.value, "scoping", null) != null ? [1] : []
+        for_each = lookup(s3_job_definition.value, "scoping", null) != null ? [s3_job_definition.value.scoping] : []
 
         content {
           dynamic "excludes" {
-            for_each = lookup(scoping.value, "excludes", null) != null ? [1] : []
+            for_each = lookup(scoping.value, "excludes", null) != null ? [scoping.value.excludes] : []
 
             content {
               dynamic "and" {
-                for_each = lookup(excludes.value, "and", null) != null ? [1] : []
+                for_each = lookup(excludes.value, "and", null) != null ? [excludes.value.and] : []
 
                 content {
                   dynamic "simple_scope_term" {
-                    for_each = lookup(and.value, "simple_scope_term", null) != null ? [1] : []
+                    for_each = lookup(and.value, "simple_scope_term", null) != null ? [and.value.simple_scope_term] : []
 
                     content {
                       comparator = lookup(simple_scope_term.value, "comparator", null)
@@ -68,7 +68,7 @@ resource "aws_macie2_classification_job" "default" {
                   }
 
                   dynamic "tag_scope_term" {
-                    for_each = lookup(and.value, "tag_scope_term", null) != null ? [1] : []
+                    for_each = lookup(and.value, "tag_scope_term", null) != null ? [and.value.tag_scope_term] : []
 
                     content {
                       comparator = lookup(tag_scope_term.value, "comparator", null)
@@ -83,15 +83,15 @@ resource "aws_macie2_classification_job" "default" {
           }
 
           dynamic "includes" {
-            for_each = lookup(scoping.value, "includes", null) != null ? [1] : []
+            for_each = lookup(scoping.value, "includes", null) != null ? [scoping.value.includes] : []
 
             content {
               dynamic "and" {
-                for_each = lookup(includes.value, "and", null) != null ? [1] : []
+                for_each = lookup(includes.value, "and", null) != null ? [includes.value.and] : []
 
                 content {
                   dynamic "simple_scope_term" {
-                    for_each = lookup(and.value, "simple_scope_term", null) != null ? [1] : []
+                    for_each = lookup(and.value, "simple_scope_term", null) != null ? [and.value.simple_scope_term] : []
 
                     content {
                       comparator = lookup(simple_scope_term.value, "comparator", null)
@@ -101,7 +101,7 @@ resource "aws_macie2_classification_job" "default" {
                   }
 
                   dynamic "tag_scope_term" {
-                    for_each = lookup(and.value, "tag_scope_term", null) != null ? [1] : []
+                    for_each = lookup(and.value, "tag_scope_term", null) != null ? [and.value.tag_scope_term] : []
 
                     content {
                       comparator = lookup(tag_scope_term.value, "comparator", null)

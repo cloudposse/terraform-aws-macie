@@ -18,19 +18,30 @@ resource "aws_macie2_findings_filter" "default" {
   action      = each.value.action
   tags        = module.findings_filter_label[each.key].tags
 
-  dynamic "finding_criteria" {
-    for_each = lookup(each.value, "finding_criteria", null)
+  finding_criteria {
+    dynamic "criterion" {
+      for_each = [for fc in each.value.finding_criterias :
+        {
+          field          = fc.field
+          eq_exact_match = try(fc.eq_exact_match, null)
+          eq             = try(fc.eq, null)
+          neq            = try(fc.neq, null)
+          lt             = try(fc.lt, null)
+          lte            = try(fc.lte, null)
+          gt             = try(fc.gt, null)
+          gte            = try(fc.gte, null)
+        }
+      ]
 
-    content {
-      criterion {
-        field          = finding_criteria.value.field
-        eq_exact_match = lookup(each.value, "eq_exact_match", null)
-        eq             = lookup(each.value, "eq", null)
-        neq            = lookup(each.value, "neq", null)
-        lt             = lookup(each.value, "lt", null)
-        lte            = lookup(each.value, "lte", null)
-        gt             = lookup(each.value, "gt", null)
-        gte            = lookup(each.value, "gte", null)
+      content {
+        field          = criterion.value.field
+        eq_exact_match = lookup(criterion.value, "eq_exact_match", null)
+        eq             = lookup(criterion.value, "eq", null)
+        neq            = lookup(criterion.value, "neq", null)
+        lt             = lookup(criterion.value, "lt", null)
+        lte            = lookup(criterion.value, "lte", null)
+        gt             = lookup(criterion.value, "gt", null)
+        gte            = lookup(criterion.value, "gte", null)
       }
     }
   }

@@ -40,7 +40,6 @@ func TestExamplesComplete(t *testing.T) {
 	// Run `terraform output` to get the value of an output variable
 	primaryAccountID := terraform.Output(t, terraformOptions, "primary_account_id")
 	primaryAccountServiceRole := terraform.Output(t, terraformOptions, "primary_account_service_role")
-	adminAccountID := terraform.Output(t, terraformOptions, "admin_account_id")
 	classificationJobIDs := terraform.OutputList(t, terraformOptions, "classification_job_ids")
 	customDataIdentifierIDs := terraform.OutputList(t, terraformOptions, "custom_data_identifier_ids")
 	findingsFiltersIDs := terraform.OutputList(t, terraformOptions, "findings_filters_ids")
@@ -48,7 +47,6 @@ func TestExamplesComplete(t *testing.T) {
 
 	assert.Equal(t, accountID, primaryAccountID)
 	assert.Equal(t, "arn:aws:iam::"+adminAccountID+":role/aws-service-role/macie.amazonaws.com/AWSServiceRoleForAmazonMacie", primaryAccountServiceRole)
-	assert.Equal(t, accountID, adminAccountID)
 	assert.NotEmpty(t, classificationJobIDs)
 	assert.NotEmpty(t, customDataIdentifierIDs)
 	assert.NotEmpty(t, findingsFiltersIDs)

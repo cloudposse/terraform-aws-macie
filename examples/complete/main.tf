@@ -23,6 +23,8 @@ module "s3_bucket" {
 module "macie" {
   source = "../.."
 
+  admin_org_account_enabled = false
+
   classification_jobs = [
     {
       name                = "s3-scan"

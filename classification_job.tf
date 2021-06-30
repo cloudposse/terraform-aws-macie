@@ -121,6 +121,7 @@ resource "aws_macie2_classification_job" "default" {
 
   depends_on = [
     aws_macie2_account.primary,
-    aws_macie2_account.member
+    aws_macie2_account.member,
+    time_sleep.wait_for_macie_account
   ]
 }

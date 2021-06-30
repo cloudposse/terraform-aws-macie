@@ -22,6 +22,7 @@ resource "aws_macie2_custom_data_identifier" "default" {
 
   depends_on = [
     aws_macie2_account.primary,
-    aws_macie2_account.member
+    aws_macie2_account.member,
+    time_sleep.wait_for_macie_account
   ]
 }

@@ -32,6 +32,17 @@ resource "aws_macie2_organization_admin_account" "default" {
   ]
 }
 
+resource "time_sleep" "wait_for_macie_account" {
+  count = local.enabled ? 1 : 0
+
+  create_duration = "30s"
+
+  depends_on = [
+    aws_macie2_account.primary,
+    aws_macie2_account.member
+  ]
+}
+
 module "member_label" {
   source  = "cloudposse/label/null"
   version = "0.24.1"
@@ -60,7 +71,8 @@ resource "aws_macie2_member" "primary" {
 
   depends_on = [
     aws_macie2_account.primary,
-    aws_macie2_account.member
+    aws_macie2_account.member,
+    time_sleep.wait_for_macie_account
   ]
 }
 
@@ -71,6 +83,7 @@ resource "aws_macie2_invitation_accepter" "member" {
 
   depends_on = [
     aws_macie2_account.primary,
-    aws_macie2_account.member
+    aws_macie2_account.member,
+    time_sleep.wait_for_macie_account
   ]
 }

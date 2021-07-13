@@ -102,7 +102,7 @@ variable "classification_jobs" {
 
 //https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/macie2_account#argument-reference
 variable "finding_publishing_frequency" {
-  type = string
+  type        = string
   description = "Specifies how often to publish updates to policy findings for the account. This includes publishing updates to AWS Security Hub and Amazon EventBridge (formerly called Amazon CloudWatch Events). Valid values are FIFTEEN_MINUTES, ONE_HOUR or SIX_HOURS."
   validation {
     condition     = var.finding_publishing_frequency == "FIFTEEN_MINUTES" || var.finding_publishing_frequency == "ONE_HOUR" || var.finding_publishing_frequency == "SIX_HOURS"

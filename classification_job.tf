@@ -76,13 +76,13 @@ resource "aws_macie2_classification_job" "default" {
                       dynamic "tag_values" {
                         for_each = lookup(tag_scope_term.value, "tag_values", null) != null ? [1] : []
                         content {
-                          value     = lookup(tag_values.value, "value", null)
-                          key        = lookup(tag_values.value, "key", null)
+                          value = lookup(tag_values.value, "value", null)
+                          key   = lookup(tag_values.value, "key", null)
                         }
                       }
 
-                      key        = lookup(tag_scope_term.value, "key", null)
-                      target     = lookup(tag_scope_term.value, "target", null)
+                      key    = lookup(tag_scope_term.value, "key", null)
+                      target = lookup(tag_scope_term.value, "target", null)
                     }
                   }
                 }
@@ -117,13 +117,13 @@ resource "aws_macie2_classification_job" "default" {
                       dynamic "tag_values" {
                         for_each = lookup(tag_scope_term.value, "tag_values", null) != null ? [1] : []
                         content {
-                          value     = lookup(tag_values.value, "value", null)
-                          key        = lookup(tag_values.value, "key", null)
+                          value = lookup(tag_values.value, "value", null)
+                          key   = lookup(tag_values.value, "key", null)
                         }
                       }
 
-                      key        = lookup(tag_scope_term.value, "key", null)
-                      target     = lookup(tag_scope_term.value, "target", null)
+                      key    = lookup(tag_scope_term.value, "key", null)
+                      target = lookup(tag_scope_term.value, "target", null)
                     }
                   }
                 }

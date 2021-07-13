@@ -11,7 +11,7 @@ output "account_service_role" {
 output "org_admin_account_ids" {
   description = "The list of IDs of the Macie organization admin accounts."
   value = [
-    for i in aws_macie2_organization_admin_account.default :
+    for i in aws_macie2_account.default :
     i.id
     if length(local.admin_account_ids) > 0
   ]

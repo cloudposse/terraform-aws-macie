@@ -11,15 +11,15 @@ locals {
 //   Meaning Org Root delegates to security account
 resource "aws_macie2_account" "default" {
   provider = aws.admin
-  count = local.enabled ? 1 : 0
+  count    = local.enabled ? 1 : 0
 
   finding_publishing_frequency = var.finding_publishing_frequency
   status                       = local.account_enabled ? "ENABLED" : "PAUSED"
 }
 
 resource "aws_macie2_organization_admin_account" "default" {
-  provider = aws.admin
-  for_each = toset(var.admin_account_ids)
+  provider         = aws.admin
+  for_each         = toset(var.admin_account_ids)
   admin_account_id = each.value
 
   depends_on = [

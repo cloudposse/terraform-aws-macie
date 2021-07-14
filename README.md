@@ -195,6 +195,7 @@ Available targets:
 | <a name="output_account_id"></a> [account\_id](#output\_account\_id) | The ID of the Macie account. |
 | <a name="output_account_service_role"></a> [account\_service\_role](#output\_account\_service\_role) | The ARN of the Macie account. |
 | <a name="output_aws_account_to_org_admin_account_ids"></a> [aws\_account\_to\_org\_admin\_account\_ids](#output\_aws\_account\_to\_org\_admin\_account\_ids) | A map of the AWS account IDs to Macie organization admin account IDs |
+| <a name="output_member_accounts"></a> [member\_accounts](#output\_member\_accounts) | A List of AWS account IDs the Macie Admin is managing |
 | <a name="output_org_admin_account_ids"></a> [org\_admin\_account\_ids](#output\_org\_admin\_account\_ids) | The list of IDs of the Macie organization admin accounts. |
 <!-- markdownlint-restore -->
 

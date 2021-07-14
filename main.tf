@@ -51,6 +51,7 @@ resource "aws_macie2_member" "default" {
   tags                                  = module.member_label[each.key].tags
 
   depends_on = [
-    aws_macie2_account.default
+    aws_macie2_account.default,
+    aws_macie2_organization_admin_account.default
   ]
 }

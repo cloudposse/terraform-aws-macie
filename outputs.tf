@@ -25,3 +25,12 @@ output "aws_account_to_org_admin_account_ids" {
     if length(local.admin_account_ids) > 0
   }
 }
+
+output "member_accounts" {
+  description = "A List of AWS account IDs the Macie Admin is managing"
+  value = [
+    for i in aws_macie2_member.default :
+    i.id
+  ]
+}
+

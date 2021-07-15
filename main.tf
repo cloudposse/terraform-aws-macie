@@ -2,7 +2,7 @@ locals {
   enabled                 = module.this.enabled
   account_enabled         = local.enabled && var.account_enabled
   admin_account_ids       = local.enabled && length(var.admin_account_ids) > 0 ? var.admin_account_ids : []
-  members                 = local.enabled && length(var.members) > 0 ? { for member in flatten(var.members) : member.email => member } : {}
+  members                 = local.enabled && length(var.members) > 0 ? { for member in flatten(var.members) : member.account_id => member } : {}
   custom_data_identifiers = local.enabled && length(var.custom_data_identifiers) > 0 ? { for cdi in flatten(var.custom_data_identifiers) : cdi.name => cdi } : {}
   classification_jobs     = local.enabled && length(var.classification_jobs) > 0 ? { for job in flatten(var.classification_jobs) : job.name => job } : {}
 }
@@ -41,7 +41,9 @@ module "member_label" {
 
 resource "aws_macie2_member" "default" {
   for_each = local.members
-
+  lifecycle {
+    ignore_changes = [tags, status, invite, email]
+  }
   account_id                            = each.value.account_id
   email                                 = each.value.email
   invite                                = lookup(each.value, "invite", null)

@@ -1,4 +1,4 @@
-variable "account_enabled" {
+variable "account_status" {
   type        = bool
   description = "Whether to enable Amazon Macie and start all Macie activities for the account."
   default     = true
@@ -12,7 +12,6 @@ variable "admin_account_ids" {
 
 variable "members" {
   type        = list(any)
-  default     = []
   description = <<-DOC
     A list of maps of Amazon Macie Members.
       account_id:
@@ -32,11 +31,11 @@ variable "members" {
       invitation_disable_email_notification:
         Whether to send an email notification to the root user of each account that the invitation will be sent to.
   DOC
+  default     = []
 }
 
 variable "custom_data_identifiers" {
   type        = list(any)
-  default     = []
   description = <<-DOC
     A list of maps of custom data identifiers.
     A custom data identifier is a set of criteria that you defined to detect sensitive data in one or more data sources.
@@ -63,11 +62,11 @@ variable "custom_data_identifiers" {
       tags:
         A map of key-value pairs that specifies the tags to associate with the custom data identifier.
   DOC
+  default     = []
 }
 
 variable "classification_jobs" {
   type        = list(any)
-  default     = []
   description = <<-DOC
     A list of maps of classification jobs.
       name:
@@ -98,6 +97,7 @@ variable "classification_jobs" {
           Specifies a monthly recurrence pattern for running the job.
 
   DOC
+  default     = []
 }
 
 //https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/macie2_account#argument-reference
@@ -108,4 +108,5 @@ variable "finding_publishing_frequency" {
     condition     = var.finding_publishing_frequency == "FIFTEEN_MINUTES" || var.finding_publishing_frequency == "ONE_HOUR" || var.finding_publishing_frequency == "SIX_HOURS"
     error_message = "The finding_publishing_frequency value must be one of (\"FIFTEEN_MINUTES\" | \"ONE_HOUR\" | \"SIX_HOURS\")."
   }
+  default = "ONE_HOUR"
 }

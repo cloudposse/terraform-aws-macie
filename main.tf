@@ -1,6 +1,6 @@
 locals {
   enabled                 = module.this.enabled
-  account_enabled         = local.enabled && var.account_enabled
+  account_enabled         = local.enabled && var.account_status
   admin_account_ids       = local.enabled && length(var.admin_account_ids) > 0 ? var.admin_account_ids : []
   members                 = local.enabled && length(var.members) > 0 ? { for member in flatten(var.members) : member.account_id => member } : {}
   custom_data_identifiers = local.enabled && length(var.custom_data_identifiers) > 0 ? { for cdi in flatten(var.custom_data_identifiers) : cdi.name => cdi } : {}

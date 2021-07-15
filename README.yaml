@@ -66,16 +66,27 @@ description: |-
 
 # How to use this module. Should be an easy example to copy and paste.
 usage: |-
-  For a complete example, see [examples/complete](examples/complete).
-  
-  For automated tests of the complete example using [bats](https://github.com/bats-core/bats-core) and [Terratest](https://github.com/gruntwork-io/terratest)
-  (which tests and deploys the example on AWS), see [test](test).
-
   ```hcl
-  module "example" {
-    source = "https://github.com/cloudposse/terraform-aws-macie.git?ref=master"
-    example = "Hello world!"
-  }
+    provider "aws" {
+      assume_role {
+        role_arn = "arn:aws:iam::996866552920:role/alth-gbl-root-admin"
+      }
+    }
+    provider "aws" {
+      alias  = "macie_admin" # delegated admin
+      assume_role {
+        role_arn = "arn:aws:iam::017098732061:role/alth-gbl-security-admin"
+      }
+    }
+    module "macie" {
+      source = "cloudposse/macie/aws"
+      # Cloud Posse recommends pinning every module to a specific version
+      # version     = "x.x.x"
+      providers = {
+        aws.admin = aws
+        aws       = aws.macie_admin
+      }
+    }
   ```
 
 # Example usage
@@ -96,4 +107,7 @@ include:
 contributors:
   - name: Vladimir Syromyatnikov
     github: SweetOps
-
+  - name: "Erik Osterman"
+    github: "osterman"
+  - name: "Benjamin Smith"
+    github: "Benbentwo"

@@ -69,13 +69,13 @@ usage: |-
   ```hcl
     provider "aws" {
       assume_role {
-        role_arn = "arn:aws:iam::996866552920:role/alth-gbl-root-admin"
+        role_arn = "arn:aws:iam::11111111111:role/my-org-root"
       }
     }
     provider "aws" {
       alias  = "macie_admin" # delegated admin
       assume_role {
-        role_arn = "arn:aws:iam::017098732061:role/alth-gbl-security-admin"
+        role_arn = "arn:aws:iam::22222222222:role/my-org-security"
       }
     }
     module "macie" {

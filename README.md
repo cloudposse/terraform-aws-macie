@@ -28,8 +28,7 @@
 
 -->
 
-This is `terraform-aws-macie` project provides all the scaffolding for a typical well-built Cloud Posse module. It's a template repository you can
-use when creating new repositories.
+Terraform module to provision [Amazon Macie](https://aws.amazon.com/macie/) - a fully managed data security and data privacy service that uses machine learning and pattern matching to discover and protect your sensitive data in AWS
 
 ---
 

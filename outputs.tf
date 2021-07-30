@@ -4,12 +4,12 @@ output "account_id" {
 }
 
 output "account_service_role" {
-  description = "The ARN of the Macie account."
+  description = "The service role ARN of the Macie account."
   value       = join("", aws_macie2_account.default.*.service_role)
 }
 
 output "org_admin_account_ids" {
-  description = "The list of IDs of the Macie organization admin accounts."
+  description = "List of IDs of the Macie organization admin accounts."
   value = [
     for i in aws_macie2_account.default :
     i.id
@@ -18,7 +18,7 @@ output "org_admin_account_ids" {
 }
 
 output "aws_account_to_org_admin_account_ids" {
-  description = "A map of the AWS account IDs to Macie organization admin account IDs"
+  description = "Map of the AWS account IDs to Macie organization admin account IDs"
   value = {
     for i in aws_macie2_organization_admin_account.default :
     i.admin_account_id => i.id
@@ -27,10 +27,9 @@ output "aws_account_to_org_admin_account_ids" {
 }
 
 output "member_accounts" {
-  description = "A List of AWS account IDs the Macie Admin is managing"
+  description = "List of AWS account IDs the Macie Admin is managing"
   value = [
     for i in aws_macie2_member.default :
     i.id
   ]
 }
-

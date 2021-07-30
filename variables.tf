@@ -1,6 +1,6 @@
 variable "account_status" {
   type        = bool
-  description = "Whether to enable Amazon Macie and start all Macie activities for the account."
+  description = "Macie account status. Possible values are `ENABLED` and `PAUSED`. Setting it to `ENABLED` will start all Macie activities for the account."
   default     = true
 }
 

@@ -7,8 +7,8 @@ locals {
   classification_jobs     = local.enabled && length(var.classification_jobs) > 0 ? { for job in flatten(var.classification_jobs) : job.name => job } : {}
 }
 
-// Setups Organization Account as Manager but delegates to account set in `admin_account_id`
-//   Meaning Org Root delegates to security account
+// Setup the Organization Account as Manager, but delegate to the account set in `admin_account_id`
+// Meaning Org Root delegates to the security account
 resource "aws_macie2_account" "default" {
   provider = aws.admin
   count    = local.enabled ? 1 : 0

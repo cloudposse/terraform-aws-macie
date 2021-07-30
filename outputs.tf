@@ -3,7 +3,7 @@ output "account_id" {
   value       = join("", aws_macie2_account.default.*.id)
 }
 
-output "account_service_role" {
+output "account_service_role_arn" {
   description = "The service role ARN of the Macie account."
   value       = join("", aws_macie2_account.default.*.service_role)
 }

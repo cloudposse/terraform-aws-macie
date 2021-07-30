@@ -27,12 +27,11 @@ resource "aws_macie2_organization_admin_account" "default" {
   ]
 }
 
-
 module "member_label" {
-  for_each = local.members
-
   source  = "cloudposse/label/null"
   version = "0.24.1"
+
+  for_each = local.members
 
   attributes = [replace(each.key, "/[[:punct:]]/", "-")]
   tags       = lookup(each.value, "tags", null)

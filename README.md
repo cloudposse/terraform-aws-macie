@@ -176,7 +176,7 @@ Available targets:
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_account_status"></a> [account\_status](#input\_account\_status) | Whether to enable Amazon Macie and start all Macie activities for the account. | `bool` | `true` | no |
+| <a name="input_account_status"></a> [account\_status](#input\_account\_status) | Macie account status. Possible values are `ENABLED` and `PAUSED`. Setting it to `ENABLED` will start all Macie activities for the account. | `bool` | `true` | no |
 | <a name="input_additional_tag_map"></a> [additional\_tag\_map](#input\_additional\_tag\_map) | Additional tags for appending to tags\_as\_list\_of\_maps. Not added to `tags`. | `map(string)` | `{}` | no |
 | <a name="input_admin_account_ids"></a> [admin\_account\_ids](#input\_admin\_account\_ids) | The list of AWS account IDs for the account to designate as the delegated Amazon Macie administrator accounts for the organization. | `list(string)` | `[]` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | Additional attributes (e.g. `1`) | `list(string)` | `[]` | no |
@@ -203,10 +203,10 @@ Available targets:
 | Name | Description |
 |------|-------------|
 | <a name="output_account_id"></a> [account\_id](#output\_account\_id) | The ID of the Macie account. |
-| <a name="output_account_service_role"></a> [account\_service\_role](#output\_account\_service\_role) | The ARN of the Macie account. |
-| <a name="output_aws_account_to_org_admin_account_ids"></a> [aws\_account\_to\_org\_admin\_account\_ids](#output\_aws\_account\_to\_org\_admin\_account\_ids) | A map of the AWS account IDs to Macie organization admin account IDs |
-| <a name="output_member_accounts"></a> [member\_accounts](#output\_member\_accounts) | A List of AWS account IDs the Macie Admin is managing |
-| <a name="output_org_admin_account_ids"></a> [org\_admin\_account\_ids](#output\_org\_admin\_account\_ids) | The list of IDs of the Macie organization admin accounts. |
+| <a name="output_account_service_role"></a> [account\_service\_role](#output\_account\_service\_role) | The service role ARN of the Macie account. |
+| <a name="output_aws_account_to_org_admin_account_ids"></a> [aws\_account\_to\_org\_admin\_account\_ids](#output\_aws\_account\_to\_org\_admin\_account\_ids) | Map of the AWS account IDs to Macie organization admin account IDs |
+| <a name="output_member_accounts"></a> [member\_accounts](#output\_member\_accounts) | List of AWS account IDs the Macie Admin is managing |
+| <a name="output_org_admin_account_ids"></a> [org\_admin\_account\_ids](#output\_org\_admin\_account\_ids) | List of IDs of the Macie organization admin accounts. |
 <!-- markdownlint-restore -->
 
 

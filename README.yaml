@@ -5,7 +5,7 @@
 #
 
 # Name of this project
-name: terraform-example-module
+name: terraform-aws-macie
 
 # Logo for this project
 #logo: docs/logo.png
@@ -17,16 +17,16 @@ license: "APACHE2"
 copyrights:
   - name: "Cloud Posse, LLC"
     url: "https://cloudposse.com"
-    year: "2020"
+    year: "2021"
 
 # Canonical GitHub repo
-github_repo: cloudposse/terraform-example-module
+github_repo: cloudposse/terraform-aws-macie
 
 # Badges to display
 badges:
   - name: "Latest Release"
-    image: "https://img.shields.io/github/release/cloudposse/terraform-example-module.svg"
-    url: "https://github.com/cloudposse/terraform-example-module/releases/latest"
+    image: "https://img.shields.io/github/release/cloudposse/terraform-aws-macie.svg"
+    url: "https://github.com/cloudposse/terraform-aws-macie/releases/latest"
   - name: "Slack Community"
     image: "https://slack.cloudposse.com/badge.svg"
     url: "https://slack.cloudposse.com"
@@ -57,8 +57,8 @@ references:
 
 # Short description of this project
 description: |-
-  This is `terraform-example-module` project provides all the scaffolding for a typical well-built Cloud Posse module. It's a template repository you can
-  use when creating new repositories.
+  Terraform module to provision [Amazon Macie](https://aws.amazon.com/macie/) - a fully managed data security and data privacy service that uses machine learning and pattern matching to discover and protect your sensitive data in AWS
+
 
 # Introduction to the project
 #introduction: |-
@@ -66,22 +66,33 @@ description: |-
 
 # How to use this module. Should be an easy example to copy and paste.
 usage: |-
-  For a complete example, see [examples/complete](examples/complete).
-  
-  For automated tests of the complete example using [bats](https://github.com/bats-core/bats-core) and [Terratest](https://github.com/gruntwork-io/terratest)
-  (which tests and deploys the example on AWS), see [test](test).
-
   ```hcl
-  module "example" {
-    source = "https://github.com/cloudposse/terraform-example-module.git?ref=master"
-    example = "Hello world!"
-  }
+    provider "aws" {
+      assume_role {
+        role_arn = "arn:aws:iam::11111111111:role/my-org-root"
+      }
+    }
+    provider "aws" {
+      alias  = "macie_admin" # delegated admin
+      assume_role {
+        role_arn = "arn:aws:iam::22222222222:role/my-org-security"
+      }
+    }
+    module "macie" {
+      source = "cloudposse/macie/aws"
+      # Cloud Posse recommends pinning every module to a specific version
+      # version     = "x.x.x"
+      providers = {
+        aws.admin = aws
+        aws       = aws.macie_admin
+      }
+    }
   ```
 
 # Example usage
 examples: |-
   Here is an example of using this module:
-  - [`examples/complete`](https://github.com/cloudposse/terraform-example-module/) - complete example of using this module
+  - [`examples/complete`](https://github.com/cloudposse/terraform-aws-macie/examples/complete) - complete example of using this module
 
 # How to get started quickly
 #quickstart: |-
@@ -94,5 +105,9 @@ include:
 
 # Contributors to this project
 contributors:
+  - name: Vladimir Syromyatnikov
+    github: SweetOps
   - name: "Erik Osterman"
     github: "osterman"
+  - name: "Benjamin Smith"
+    github: "Benbentwo"

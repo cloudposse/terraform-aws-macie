@@ -1,8 +1,8 @@
 module "classification_job_label" {
-  for_each = local.classification_jobs
-
   source  = "cloudposse/label/null"
   version = "0.24.1"
+
+  for_each = local.classification_jobs
 
   attributes = [each.key]
   tags       = lookup(each.value, "tags", null)

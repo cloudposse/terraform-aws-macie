@@ -1,8 +1,8 @@
 module "custom_data_identifier_label" {
-  for_each = local.custom_data_identifiers
-
   source  = "cloudposse/label/null"
   version = "0.24.1"
+
+  for_each = local.custom_data_identifiers
 
   attributes = [each.key]
   tags       = lookup(each.value, "tags", null)

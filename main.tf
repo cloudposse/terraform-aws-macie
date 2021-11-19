@@ -29,7 +29,7 @@ resource "aws_macie2_organization_admin_account" "default" {
 
 module "member_label" {
   source  = "cloudposse/label/null"
-  version = "0.24.1"
+  version = "0.25.0"
 
   for_each = local.members
 

@@ -4,7 +4,7 @@ provider "aws" {
 
 provider "aws" {
   alias = "admin"
-  
+
   region = var.region
 }
 

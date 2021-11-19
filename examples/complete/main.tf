@@ -11,6 +11,10 @@ provider "aws" {
 module "example" {
   source = "../.."
 
+  providers {
+    aws.admin = aws.admin
+  }
+  
   example = var.example
 
   context = module.this.context

@@ -1,3 +1,13 @@
+provider "aws" {
+  region = var.region
+}
+
+provider "aws" {
+  alias = "admin"
+
+  region = var.region
+}
+
 module "example" {
   source = "../.."
 

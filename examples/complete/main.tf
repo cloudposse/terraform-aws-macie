@@ -14,7 +14,7 @@ module "example" {
   providers = {
     aws.admin = aws.admin
   }
-  
+
   example = var.example
 
   context = module.this.context

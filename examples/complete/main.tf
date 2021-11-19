@@ -12,6 +12,7 @@ module "example" {
   source = "../.."
 
   providers = {
+    aws       = aws
     aws.admin = aws.admin
   }
 

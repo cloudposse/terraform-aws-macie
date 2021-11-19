@@ -8,10 +8,13 @@ provider "aws" {
   region = var.region
 }
 
-module "example" {
+module "macie" {
   source = "../.."
 
-  example = var.example
+  providers = {
+    aws       = aws
+    aws.admin = aws.admin
+  }
 
   context = module.this.context
 }

@@ -17,9 +17,9 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_classification_job_label"></a> [classification\_job\_label](#module\_classification\_job\_label) | cloudposse/label/null | 0.24.1 |
-| <a name="module_custom_data_identifier_label"></a> [custom\_data\_identifier\_label](#module\_custom\_data\_identifier\_label) | cloudposse/label/null | 0.24.1 |
-| <a name="module_member_label"></a> [member\_label](#module\_member\_label) | cloudposse/label/null | 0.24.1 |
+| <a name="module_classification_job_label"></a> [classification\_job\_label](#module\_classification\_job\_label) | cloudposse/label/null | 0.25.0 |
+| <a name="module_custom_data_identifier_label"></a> [custom\_data\_identifier\_label](#module\_custom\_data\_identifier\_label) | cloudposse/label/null | 0.25.0 |
+| <a name="module_member_label"></a> [member\_label](#module\_member\_label) | cloudposse/label/null | 0.25.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources

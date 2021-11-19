@@ -1,14 +1,24 @@
-output "id" {
-  description = "ID of the created example"
-  value       = module.example.id
+output "account_id" {
+  description = "The ID of the Macie account."
+  value       = module.macie.account_id
 }
 
-output "example" {
-  description = "Output \"example\" from example module"
-  value       = module.example.example
+output "account_service_role_arn" {
+  description = "The service role ARN of the Macie account."
+  value       = module.macie.account_service_role_arn
 }
 
-output "random" {
-  description = "Output \"random\" from example module"
-  value       = module.example.random
+output "org_admin_account_ids" {
+  description = "List of IDs of the Macie organization admin accounts."
+  value       = module.macie.org_admin_account_ids
+}
+
+output "aws_account_to_org_admin_account_ids" {
+  description = "Map of the AWS account IDs to Macie organization admin account IDs"
+  value       = module.macie.aws_account_to_org_admin_account_ids
+}
+
+output "member_accounts" {
+  description = "List of AWS account IDs the Macie Admin is managing"
+  value       = module.macie.member_accounts
 }

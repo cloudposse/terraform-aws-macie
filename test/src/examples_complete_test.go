@@ -1,21 +1,16 @@
 package test
 
 import (
-	"math/rand"
-	"strconv"
-	"testing"
-	"time"
-
-	"github.com/gruntwork-io/terratest/modules/terraform"
+  "github.com/gruntwork-io/terratest/modules/random"
+  "github.com/gruntwork-io/terratest/modules/terraform"
+  "strings"
+  "testing"
 )
 
 // Test the Terraform module in examples/complete using Terratest.
 func TestExamplesComplete(t *testing.T) {
-	t.Parallel()
-
-	rand.Seed(time.Now().UnixNano())
-	randID := strconv.Itoa(rand.Intn(100000))
-	attributes := []string{randID}
+  randID := strings.ToLower(random.UniqueId())
+  attributes := []string{randID}
 
 	terraformOptions := &terraform.Options{
 		// The path to where our Terraform code is located

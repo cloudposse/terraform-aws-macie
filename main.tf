@@ -33,6 +33,7 @@ module "member_label" {
 
   for_each = local.members
 
+  # By default, the label module will remove punctuation. Here we convert to dash instead.
   attributes = [replace(each.key, "/[[:punct:]]/", "-")]
   tags       = lookup(each.value, "tags", null)
   context    = module.this.context

@@ -32,12 +32,19 @@ clean:
 ## Run all tests
 all: module examples/complete
 
+# The module has aliased providers, which must be explicitly set when running tests
+../providers.tf: ../examples/complete/providers.tf
+	cp -p $< $@
+
+# Tell `make` to remove ../providers.tf when done
+.INTERMEDIATE: ../providers.tf
+
 ## Run basic sanity checks against the module itself
-module: export TESTS ?= installed lint get-modules module-pinning get-plugins provider-pinning validate terraform-docs input-descriptions output-descriptions
-module: deps
+module: export TESTS ?= installed lint module-pinning provider-pinning validate terraform-docs input-descriptions output-descriptions
+module: deps ../providers.tf
 	$(call RUN_TESTS, ../)
 
 ## Run tests against example
-examples/complete: export TESTS ?= installed lint get-modules get-plugins validate
+examples/complete: export TESTS ?= installed lint validate
 examples/complete: deps
 	$(call RUN_TESTS, ../$@)

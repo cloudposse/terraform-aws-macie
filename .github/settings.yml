@@ -2,6 +2,6 @@
 _extends: .github
 repository:
   name: terraform-aws-macie
-  description: Terraform module to provision Amazon Macie - a fully managed data security and data privacy service that uses machine learning and pattern matching to discover and protect your sensitive data in AWS
+  description: Use AI/ML and pattern matching to identify and protect sensitive data in AWS
   homepage: https://cloudposse.com/accelerate
   topics: macie, aws, security, machine-lerning, privacy, compliance, terraform, terraform-modules

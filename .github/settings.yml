@@ -5,3 +5,4 @@ repository:
   description: Use AI/ML and pattern matching to identify and protect sensitive data in AWS
   homepage: https://cloudposse.com/accelerate
   topics: macie, aws, security, machine-lerning, privacy, compliance, terraform, terraform-modules
+
